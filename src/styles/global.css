@@ -34,18 +34,18 @@
 body[data-theme="dark"] {
   --color-bg: #1c1d1e;
   --color-surface: #202123;
-  --color-surface-muted: #1b2733;
+  --color-surface-muted: #276696c9;
   --color-border: #303132;
 
   --color-text: #e5edf5;
-  --color-text-muted: #b6c2cf;
-  --color-text-soft: #93a4b5;
+  --color-text-muted: #f4f5f6;
+  --color-text-soft: #f6f6f7;
 
-  --color-primary: #4e9ad4;
+  --color-primary: #2f5575;
   --color-primary-hover: #3f78a3;
   --color-primary-contrast: #f8fbff;
 
-  --color-accent: #78a9d1;
+  --color-accent: #697986;
   --color-accent-soft: #1d3244;
 
   --color-danger: #f97066;
