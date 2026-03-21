@@ -29,3 +29,33 @@ export const buildPostListItems = (
     commentsCount: commentsCountMap[post.id] ?? 0,
   }));
 };
+
+export const filterPosts = (
+  posts: PostListItem[],
+  searchTerm: string,
+  selectedUserId: number | null
+): PostListItem[] => {
+  const normalizedSearch = searchTerm.trim().toLowerCase();
+
+  return posts.filter((post) => {
+    const matchesSearch =
+      normalizedSearch.length === 0 ||
+      post.title.toLowerCase().includes(normalizedSearch) ||
+      post.body.toLowerCase().includes(normalizedSearch);
+
+    const matchesUser = selectedUserId === null || post.userId === selectedUserId;
+
+    return matchesSearch && matchesUser;
+  });
+};
+
+export const paginateItems = <T,>(
+  items: T[],
+  currentPage: number,
+  itemsPerPage: number
+): T[] => {
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  return items.slice(startIndex, endIndex);
+};

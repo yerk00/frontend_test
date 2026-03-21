@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getPosts } from "../api/posts.api";
 import type { Post } from "../types/api.types";
+import { useAsyncState } from "./useAsyncState";
 
 interface UsePostsResult {
   data: Post[];
@@ -9,41 +10,15 @@ interface UsePostsResult {
 }
 
 export const usePosts = (): UsePostsResult => {
-  const [data, setData] = useState<Post[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data, isLoading, error, run } = useAsyncState<Post[]>();
 
   useEffect(() => {
-    let isMounted = true;
+    void run(getPosts);
+  }, [run]);
 
-    const loadPosts = async () => {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        const posts = await getPosts();
-
-        if (!isMounted) return;
-        setData(posts);
-      } catch (error) {
-        if (!isMounted) return;
-
-        const message =
-          error instanceof Error ? error.message : "No se pudieron cargar las publicaciones";
-
-        setError(message);
-      } finally {
-        if (!isMounted) return;
-        setIsLoading(false);
-      }
-    };
-
-    void loadPosts();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  return { data, isLoading, error };
+  return {
+    data: data ?? [],
+    isLoading,
+    error,
+  };
 };

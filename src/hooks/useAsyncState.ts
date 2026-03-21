@@ -28,6 +28,8 @@ export const useAsyncState = <T>() => {
         isLoading: false,
         error: null,
       });
+
+      return data;
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Ocurrió un error inesperado";
@@ -37,6 +39,8 @@ export const useAsyncState = <T>() => {
         isLoading: false,
         error: message,
       });
+
+      return null;
     }
   }, []);
 

@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getUsers } from "../api/users.api";
 import type { User } from "../types/api.types";
+import { useAsyncState } from "./useAsyncState";
 
 interface UseUsersResult {
   data: User[];
@@ -9,41 +10,15 @@ interface UseUsersResult {
 }
 
 export const useUsers = (): UseUsersResult => {
-  const [data, setData] = useState<User[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data, isLoading, error, run } = useAsyncState<User[]>();
 
   useEffect(() => {
-    let isMounted = true;
+    void run(getUsers);
+  }, [run]);
 
-    const loadUsers = async () => {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        const users = await getUsers();
-
-        if (!isMounted) return;
-        setData(users);
-      } catch (error) {
-        if (!isMounted) return;
-
-        const message =
-          error instanceof Error ? error.message : "No se pudieron cargar los usuarios";
-
-        setError(message);
-      } finally {
-        if (!isMounted) return;
-        setIsLoading(false);
-      }
-    };
-
-    void loadUsers();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  return { data, isLoading, error };
+  return {
+    data: data ?? [],
+    isLoading,
+    error,
+  };
 };
