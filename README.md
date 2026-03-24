@@ -1,11 +1,12 @@
 # Frontend
 
 Aplicación web desarrollada con **React 18 + TypeScript** para listar publicaciones, ver su detalle, filtrar resultados y exportar información a **PDF** y **Excel**.
+Aplicación web desarrollada con **React 18 + TypeScript** para listar publicaciones, ver su detalle, filtrar resultados y exportar información a **PDF** y **Excel**.
 
 El proyecto fue construido con foco en:
 - modularidad,
 - reutilización,
-- tipado fuerte con TypeScript,
+- tipado con TypeScript,
 - separación de responsabilidades,
 
 ---
@@ -30,6 +31,7 @@ y permite:
 - usar una tabla genérica reutilizable `GenericTable<T>` en distintos contextos.
 
 Incorporacion de:
+Además, se incorporaron:
 - modo oscuro con toggle visible,
 - persistencia de filtros y página en la URL,
 - lazy loading de rutas,
@@ -46,6 +48,7 @@ Incorporacion de:
 ### Exportación a PDF
 
 ### Exportación a Excel
+
 
 ---
 
@@ -67,6 +70,7 @@ Incorporacion de:
 
 ### Exportación Excel
 - **xlsx** (SheetJS)
+
 
 ---
 
